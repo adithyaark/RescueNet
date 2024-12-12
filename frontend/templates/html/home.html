@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RescueNet - Disaster Response Network</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <style>
+      .hero-section {
+        background: linear-gradient(
+            rgba(21, 21, 21, 0.7),
+            rgba(141, 220, 158, 0.7)
+          ),
+          url("/api/placeholder/1920/600") center/cover;
+        min-height: 400px;
+        color: white;
+      }
+
+      .stat-card {
+        border: none;
+        transition: transform 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .disaster-card {
+        overflow: hidden;
+      }
+
+      .disaster-card img {
+        transition: transform 0.5s ease;
+      }
+
+      .disaster-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .urgent-alert {
+        background: linear-gradient(45deg);
+        border: none;
+      }
+
+      .testimonial-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+      }
+
+      .map-overlay {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+          <i data-lucide="alert-triangle" class="text-danger me-2"></i>
+          <span><b>RescueNet</b></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          title="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+              <i data-lucide="alert-triangle"></i>
+
+              <a href="{% url 'index' %}" class="nav-link">Disasters</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'volunteer' %}" class="nav-link">Volunteer</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Login</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'add-disaster' %}" class="btn btn-danger ms-2"
+                >Report Disaster</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center text-center">
+      <div class="container">
+        <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeIn">
+          Connecting Heroes with Those in Need
+        </h1>
+        <p
+          class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s"
+        >
+          Join our global network of volunteers providing immediate disaster
+          relief and long-term recovery support.
+        </p>
+        <div
+          class="d-flex justify-content-center gap-3 animate__animated animate__fadeIn animate__delay-2s"
+        >
+          <a href="{% url 'volunteer' %}" class="btn btn-success">Volunteer Now</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card stat-card text-center p-4">
+              <h2 class="display-4 fw-bold text-primary">150+</h2>
+              <p class="text-muted mb-0">Active Missions</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card text-center p-4">
+              <h2 class="display-4 fw-bold text-success">10k+</h2>
+              <p class="text-muted mb-0">Volunteers</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card text-center p-4">
+              <h2 class="display-4 fw-bold text-info">45</h2>
+              <p class="text-muted mb-0">Countries</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card text-center p-4">
+              <h2 class="display-4 fw-bold text-warning">1M+</h2>
+              <p class="text-muted mb-0">People Helped</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5">Active Disaster Responses</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card disaster-card h-100">
+              <img src="{% static 'img/flood.jpg' %}" class="card-img-top" alt="Hurricane" />
+              <div class="card-body">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="badge text-bg-danger">Low</span>
+                  <span class="badge text-bg-warning">Flood</span>
+                </div>
+                <h5 class="card-title">Waynad Flood</h5>
+                <p class="card-text">
+                  All medical supplies and volunteers in affected areas are
+                  alloted .
+                </p>
+                <div class="progress mb-3" style="height: 5px">
+                  <div class="progress-bar bg-danger" style="width: 100%"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">100% of goal reached</small>
+                </div>
+              </div>
+              <div class="card-footer bg-white border-0">
+                <a href="{% url 'volunteer' %}" class="btn btn-primary w-100"
+                  >Join Volunteer Team</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card disaster-card h-100">
+              <img
+              <img src="{% static 'img/earthquake.webp' %}" 
+                class="card-img-top"
+                alt="Earthquake"
+              />
+              <div class="card-body">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="badge text-bg-danger">Critical</span>
+                  <span class="badge text-bg-info">Earthquake</span>
+                </div>
+                <h5 class="card-title">Nepal Earthquake Response</h5>
+                <p class="card-text">
+                  Supporting communities with shelter and medical assistance.
+                </p>
+                <div class="progress mb-3" style="height: 5px">
+                  <div class="progress-bar bg-danger" style="width: 60%"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">60% of goal reached</small>
+                </div>
+              </div>
+              <div class="card-footer bg-white border-0">
+                <a href="{% url 'volunteer' %}" class="btn btn-primary w-100"
+                  >Join Volunteer Team</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card disaster-card h-100">
+              <img src="{% static 'img/hurricane.jpg' %}" class="card-img-top" alt="Flood" />
+              <div class="card-body">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <span class="badge text-bg-warning">Critical</span>
+                  <span class="badge text-bg-primary">Hurricane</span>
+                </div>
+                <h5 class="card-title">Hurricane Milton</h5>
+                <p class="card-text">
+                  Providing emergency supplies and evacuation support.
+                </p>
+                <div class="progress mb-3" style="height: 5px">
+                  <div class="progress-bar bg-warning" style="width: 45%"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">45% of goal reached</small>
+                </div>
+              </div>
+              <div class="card-footer bg-white border-0">
+                <a href="{% url 'volunteer' %}" class="btn btn-primary w-100"
+                  >Join Volunteer Team</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <img
+            <img src="{% static 'img/impact map.webp' %}"
+              alt="Impact Map"
+              class="img-fluid rounded-3"
+            />
+          </div>
+          <div class="col-md-5 offset-md-1">
+            <div class="map-overlay p-4">
+              <h2 class="mb-4">Global Impact</h2>
+              <div class="mb-4">
+                <h5 class="text-primary">45 Countries</h5>
+                <p>Active disaster response missions across the globe</p>
+              </div>
+              <div class="mb-4">
+                <h5 class="text-success">10,000+ Volunteers</h5>
+                <p>Dedicated responders ready to help</p>
+              </div>
+              <div>
+                <h5 class="text-info">24/7 Support</h5>
+                <p>Round-the-clock emergency response coordination</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5">Volunteer Stories</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="testimonial-card p-4">
+              <div class="d-flex align-items-center mb-3">
+                <div>
+                  <h5 class="mb-0">Gokul Krishna</h5>
+                  <small class="text-muted">Medical Volunteer</small>
+                </div>
+              </div>
+              <p>
+                "Being part of RescueNet has allowed me to make a real
+                difference in crisis situations. The network's organization and
+                support make it possible to help effectively."
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card p-4">
+              <div class="d-flex align-items-center mb-3">
+                <div>
+                  <h5 class="mb-0">David Chen</h5>
+                  <small class="text-muted">Logistics Coordinator</small>
+                </div>
+              </div>
+              <p>
+                "The platform's efficiency in coordinating resources and
+                volunteers during emergencies is impressive. We can mobilize
+                quickly when every minute counts."
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="testimonial-card p-4">
+              <div class="d-flex align-items-center mb-3">
+                <div>
+                  <h5 class="mb-0">Maria Garcia</h5>
+                  <small class="text-muted">Emergency Responder</small>
+                </div>
+              </div>
+              <p>
+                "I've been on multiple missions with RescueNet, and each time
+                I'm amazed by the community's dedication and the impact we can
+                make together."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-md-8">
+            <h2 class="mb-4">Ready to Make a Difference?</h2>
+            <p class="lead mb-4">
+              Join our global network of volunteers and help communities recover
+              from disasters.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+              <a href="{% url 'volunteer' %}" class="btn btn-primary btn-lg"
+                >Become a Volunteer</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <h3 class="h5">About Us</h3>
+            <p>
+              RescueNet connects disaster-affected communities with volunteers
+              and resources for immediate relief and long-term recovery.
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h3 class="h5">Quick Links</h3>
+            <ul class="list-unstyled">
+              <li>
+                <a
+                  href="{% url 'add-disaster' %}"
+                  class="link-light text-decoration-none"
+                  >Report Disaster</a
+                >
+              </li>
+              <li>
+                <a href="{% url 'volunteer' %}" class="link-light text-decoration-none"
+                  >Become a Volunteer</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h3 class="h5">Contact</h3>
+            <ul class="list-unstyled">
+              <li>Contact : 8078280973</li>
+              <li>Emergency: 911</li>
+              <li>Email: help@rescuenet.org</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h3 class="h5">Follow Us</h3>
+            <div class="d-flex gap-3">
+              <a href="#" class="link-light text-decoration-none">Twitter</a>
+              <a href="#" class="link-light text-decoration-none">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center border-top border-secondary mt-4 pt-4">
+          <p class="mb-0">Made with for humanity</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
